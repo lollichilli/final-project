@@ -1,0 +1,68 @@
+section {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+h1 {
+    font-size: 30pt;
+    text-align: center;
+    padding-top: 30px;
+}
+
+h2 {
+    font-size: 25pt;
+    text-align: center;
+}
+
+.hero.is-primary {
+    padding-right: 30px;
+    padding-bottom: 15px;
+    padding-top: 25px;
+    padding-left: 30px;
+    background-color: #2C9CD1;
+}
+
+.button.is-success {
+    color:#000000;
+    background-color: #2C9CD1;
+}
+
+.hero.is-info {
+    background-color: #2C69D1;
+}
+
+.button.is-info {
+    color: #000000;
+}
+
+.hero.is-link {
+    background-color: #2CD1D1;
+}
+
+.button.is-link {
+    color: #000000;
+}
+
+.hero.is-warning {
+    background-color: #2CD199;
+}
+
+.button.is-warning {
+    color: #000000;
+    background-color: #2CD199;
+}
+
+.hero.is-danger {
+    background-color: #2C34D1;
+}
+
+.button.is-danger {
+    color: #000000;
+    background-color: #2C34D1;
+}
+p {
+    color: #000000;
+}
+b {
+    color: #000000;
+}

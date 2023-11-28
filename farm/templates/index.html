@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero is-primary">
+  <h1 class="text">Farm to Table</h1>
+  <button class="button is-primary" onclick="location.href='/cart'">My Cart</button>
+</section>
+
+<h2 class="text">Available Products:</h2>
+
+{% for product in products %}
+
+<section class="hero is-link">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <figure class="image is-128x128">
+            <img class="is-rounded" src="{{product.image}}" width="100">
+          </figure>
+        </div>
+        <div class="column">
+          <b>{{product.name}} - ${{product.price}}</b>
+          <p>{{product.description}}</p>
+        </div>
+        <div class="column">
+          <button class="button is-success">
+            <b><a href="{{url_for('add_to_cart', product_id=product.p_id)}}">Add to Cart</a></b>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endfor %}
+{% endblock %}

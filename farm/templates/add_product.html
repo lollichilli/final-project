@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero is-primary">
+  <h1>Add New Product</h1>
+  <button class="button is-light" onclick="location.href='/admin'">Exit Without Submitting</button>
+</section>
+
+<section class="hero is-warning">
+  <div class="hero-body">
+    <form class="form" method="POST">
+      <div class="form-group">
+        <label>Name:</label>
+        <input class="input" name="name" placeholder="Name">
+      </div>
+      
+      <div class="form-group">
+        <label>Desc:</label>
+        <textarea class="textarea form-control" name="description" placeholder="Description"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Price:</label>
+        <input class="input" name="price" placeholder="Price">
+      </div>
+
+      <div class="form-group">
+        <label>Image:</label>
+        <input class="input" name="image" placeholder="Image URL">
+      </div>  
+
+      <button class="button is-success" type="submit">Submit</button>
+    </form>
+  </div>
+</section>
+{% endblock %}
