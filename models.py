@@ -25,6 +25,7 @@ class Transaction(db.Model):
   
     __tablename__ = 'transactions'
     transaction_id = db.Column(db.Integer, primary_key=True)
+    transaction_date = db.Column(db.DateTime, nullable=False)
     from_account_id = db.Column(db.Integer, db.ForeignKey('accounts.account_id'), nullable=False)
     to_account_id = db.Column(db.Integer, db.ForeignKey('accounts.account_id'), nullable=False)  
     amount = db.Column(db.Integer, nullable=False)
@@ -68,6 +69,7 @@ class TransactionSchema(ma.SQLAlchemySchema):
         load_instance = True
 
     transaction_id = ma.auto_field()
+    transaction_date = ma.auto_field()
     from_account_id = ma.auto_field()
     to_account_id = ma.auto_field()
     amount = ma.auto_field()
