@@ -1,5 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h1>Transactions</h1>
 
+<h2>Transactions to account:</h2>
+{% for to_user in transactions_to_user %}
+    {# Get the account instance first #}
+    {% set to_account = Account.query.filter_by(account_id=to_user.to_account_id).first() %}
+    {% set from_account = Account.query.filter_by(account_id=to_user.from_account_id).first() %}
+    <div class="column">
+        <b>Date: </b>{{to_user.transaction_date}}
+        <b>From:</b> {{ User.query.filter_by(user_id=from_account.u_id).first().user_name }}
+        <b>To:</b> {{ User.query.filter_by(user_id=to_account.u_id).first().user_name }}
+        <b>Amount: </b>{{to_user.amount}} 
+    </div>
+{% endfor %}
+
+<h2>Transactions from account:</h2>
+{% for from_user in transactions_from_user %}
+    {# Get the account instance first #}
+    {% set to_account = Account.query.filter_by(account_id=from_user.to_account_id).first() %}
+    {% set from_account = Account.query.filter_by(account_id=from_user.from_account_id).first() %}
+    <div class="column">
+        <b>Date: </b>{{from_user.transaction_date}}
+        <b>From:</b> {{ User.query.filter_by(user_id=from_account.u_id).first().user_name }}
+        <b>To:</b> {{ User.query.filter_by(user_id=to_account.u_id).first().user_name }}
+        <b>Amount: </b>{{from_user.amount}} 
+    </div>
+{% endfor %}
 {% endblock %}

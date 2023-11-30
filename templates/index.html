@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<h1>Welcome {{username}}!</h1>
+<h2>Balance: ${{balance}}</h2>
+<div>
+    <a href="{{url_for('transaction_history')}}">Transaction History</a>
+</div>
+<div>
+    <a href="{{url_for('send_money')}}">Send Money</a>
+</div>
 {% endblock %}

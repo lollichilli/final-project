@@ -7,7 +7,7 @@ import pathlib
 import sqlalchemy as sa
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-from models import User
+from models import User, Account
 
 def init_db(filename: str):
     """Initialize the database"""
@@ -38,6 +38,12 @@ def init_db(filename: str):
                 user_password=item["user_password"],
             )
             session.add(a_user)
+            
+            a_account = Account(
+                u_id=user_id,
+                account_balance=500
+            )
+            session.add(a_account)
 
         session.commit()
 
