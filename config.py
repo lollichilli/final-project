@@ -11,6 +11,7 @@ from flask_marshmallow import Marshmallow
 def create_app():
     """Create Flask app"""
     this_app = Flask(__name__)
+    this_app.secret_key = 'secret'
     if not pathlib.Path(".flaskenv").exists():
         load_dotenv(pathlib.Path(__file__).parent / pathlib.Path(".flaskenv"))
     this_app.config.from_prefixed_env()

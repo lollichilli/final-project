@@ -11,10 +11,12 @@ def index():
     else :
         # Get the user id from session
         user_id = session['user_id']
-        return render_template('index.html', user_id=user_id)
+        user = User.query.filter_by(user_id=user_id).first()
+        username = user.user_name
+        return render_template('index.html', user_id=user_id, user_name=username)
 
 # Login
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         # Get the login info from the form and query it from User
@@ -34,7 +36,7 @@ def login():
     return render_template('login.html')
 
 # Register
-@app.route('/register', methods=['POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         # Get the registration form info
@@ -68,9 +70,9 @@ def transaction_history():
     # Get the user id from session
     user_id = session['user_id']
     # Get the users transactions from the user
-    transactions_from_user = Transaction.query.filter_by(from_account_id=user_id).all()
+    transactions_from_user = Transaction.query.filter_by(from_account_id=user_id).all().order_by(Transaction.transaction_date).desc()
     # Get the transactions to the user
-    transactions_to_user = Transaction.query.filter_by(to_account_id=user_id).all()
+    transactions_to_user = Transaction.query.filter_by(to_account_id=user_id).all().order_by(Transaction.transaction_date).desc()
     # Render the template with the users transaction history
     return render_template(
         'transaction_history.html',
