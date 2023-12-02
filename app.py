@@ -17,7 +17,8 @@ def index():
         email = user.user_email
         account = Account.query.filter_by(u_id=user_id).first()
         balance = account.account_balance
-        return render_template('index.html', username=username, email=email, balance=balance)
+        return render_template('index.html', username=username, email=email,
+        balance=balance)
 
 # Login
 @app.route('/login', methods=['GET', 'POST'])
@@ -25,9 +26,9 @@ def login():
     if request.method == 'POST':
         # Get the login info from the form and query it from User
         loginForm = request.form
-        username = loginForm['username']
+        useremail = loginForm['useremail']
         password = loginForm['password']
-        currentUser = User.query.filter_by(user_name=username).first()
+        currentUser = User.query.filter_by(user_email=useremail).first()
         # Check if valid and then redirect user accordingly
         if (currentUser) :
             if (currentUser.user_password == password) :
@@ -36,7 +37,7 @@ def login():
             else :
                 return "Incorrect Password"
         else :
-            return "Invalid Login"
+            return "Account doesn't exist"
     return render_template('login.html')
 
 # Register
@@ -47,8 +48,13 @@ def register():
         registrationForm = request.form
         # Check if the user already exists
         user = User.query.filter_by(user_name=registrationForm['username']).first()
-        if (user) :
-            return "User Already Exists"
+        email = User.query.filter_by(user_email=registrationForm['email']).first()
+        if (user and email) :
+            return "Username or Email Already Exist"
+        elif (user) :
+            return "Username Already Exists"
+        elif (email) :
+            return "Email Already Exists"
         else :
             # Create a new user
             newUser = User(

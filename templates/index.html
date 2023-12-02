@@ -2,8 +2,10 @@
 
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+
+
+<h4>Welcome {{username}}!</h4>
 <div class="profile-container">
-    <h1>Welcome {{username}}!</h1>
     <div class="user-profile">
         <h2>User Profile</h2>
         <div class="profile-info">
@@ -15,9 +17,7 @@
     <div class="links">
         <a href="{{url_for('transaction_history')}}">Transaction History</a>
         <a href="{{url_for('send_money')}}">Send Money</a>
-        <form action="{{ url_for('logout') }}" method="post">
-            <button type="submit">Logout</button>
-        </form>
+
     </div>
 </div>
 {% endblock %}
