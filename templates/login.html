@@ -1,16 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form class="form" method="POST">
-    <div class="form-group">
-      <label>Username:</label>
-      <input class="input" type="text" name="username" value="" class="form-control">
-    </div>
-    <div class="form-group">  
-      <label>Password:</label>
-      <input class="input" type="text" name="password" value="" class="form-control">
-    </div>
-    <button class="button is-success" type="submit" class="btn btn-primary">Save</button>
-  </form>
-  <p>Don't have an account? Register</p><a href="{{url_for('register')}}">here</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="login.css"> -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+
+  <title>Banking App</title>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+    <form action="{{ url_for('login') }}" method="POST">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a>.</p>
+</div>
+</body>
+</html>
 {% endblock %}

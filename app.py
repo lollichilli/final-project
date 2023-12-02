@@ -14,9 +14,10 @@ def index():
         user_id = session['user_id']
         user = User.query.filter_by(user_id=user_id).first()
         username = user.user_name
+        email = user.user_email
         account = Account.query.filter_by(u_id=user_id).first()
         balance = account.account_balance
-        return render_template('index.html', username=username, balance=balance)
+        return render_template('index.html', username=username, email=email, balance=balance)
 
 # Login
 @app.route('/login', methods=['GET', 'POST'])
@@ -144,6 +145,12 @@ def send_money():
     return render_template(
         'send_money.html'
         )
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    # Clear the session
+    session.pop('user_id', None)
+    # Redirect to the login page
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run()
