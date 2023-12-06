@@ -19,7 +19,7 @@ function redirect(url) {
 }
 
 async function requestBalance(username) {
-    return fetch(`${BASE_URL}/banking/${username}/balance`)
+    return fetch(`${BASE_URL}/${username}/balance`)
         .then((response) => response.json())
         .then((data) => displayBalance(data))
         .catch((error) => console.log(error));
@@ -31,13 +31,14 @@ function displayBalance(data) {
 }
 
 async function requestTransactionsTo(username) {
-    return fetch(`${BASE_URL}/banking/${username}/transactionst`)
+    return fetch(`${BASE_URL}/${username}/transactionst`)
         .then((response) => response.json())
         .then((data) => displayTransTo(data["Transactions_t"]))
         .catch((error) => console.log(error));
 }
 
 function displayTransTo(data) {
+    console.log(data);
     const transDate = document.getElementById("trans-to-date");
     transDate.innerText = data[0][1];
     const transFrom = document.getElementById("trans-to-from");
@@ -46,7 +47,7 @@ function displayTransTo(data) {
     transAmount.innerText = data[0][4];
 }
 async function requestTransactionsFrom(username) {
-    return fetch(`${BASE_URL}/banking/${username}/transactionsf`)
+    return fetch(`${BASE_URL}/${username}/transactionsf`)
         .then((response) => response.json())
         .then((data) => displayTransFrom(data["Transactions_f"]))
         .catch((error) => console.log(error));
@@ -94,9 +95,18 @@ async function login() {
             // Display the user info
             userData = await requestUserData(username);
             displayData(userData, username);
+            requestBalance(username);
             break;
 
         case "/templates/login.html" :
             break;
+        case "/templates/transaction_history.html" :
+            // Get the username from session
+            let currentUser = sessionStorage.getItem("username");
+            currentUser = currentUser ? currentUser : redirect("login.html");
+
+            requestTransactionsTo(currentUser);
+            requestTransactionsFrom(currentUser);
+
     }
 }
