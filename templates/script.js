@@ -75,6 +75,7 @@ async function login() {
         pswdMsg = document.getElementById("msg");
         pswdMsg.innerText = "Incorrect Username/Password";
     }
+}
 
 // On page load, get the logged-in user's username and display user info
  window.onload = async function () {
@@ -98,4 +99,4 @@ async function login() {
         case "/templates/login.html" :
             break;
     }
-};
+}
