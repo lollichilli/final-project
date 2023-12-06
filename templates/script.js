@@ -6,6 +6,12 @@ async function requestUserData(username) {
         .catch(error => console.log(error));
 }
 
+async function requestRegistration(username, email, password) {
+    return fetch(`${BASE_URL}/register/${username}/${email}/${password}`)
+        .then(response => response.json())
+        .catch(error => console.log(error));
+}
+
 function displayData(data, username) {
     const usernameElement = document.getElementById("username");
     const emailElement = document.getElementById("email");
@@ -62,6 +68,24 @@ function displayTransFrom(data) {
     transAmount.innerText = data[0][4];
 }
 
+async function register() {
+    let username = document.querySelector("input[name='username']").value;
+    let email = document.querySelector("input[name='email']").value;
+    let password = document.querySelector("input[name='password']").value;
+
+    let registerData = await requestRegistration(username, email, password);
+    if (registerData['Success'][0] == true) {
+        console.log('User created')
+        sessionStorage.setItem('username', username);
+        redirect('index.html');
+    } else {
+        if (registerData['Success'][0] == false) {
+            alert(registerData['Success'][1]);
+        }
+    }
+    
+}
+
 async function login() {
     let username = document.querySelector("input[name='username']").value;
     let password = document.querySelector("input[name='password']").value;
@@ -78,12 +102,16 @@ async function login() {
     }
 }
 
+function logout() {
+    sessionStorage.removeItem('username');
+    redirect("login.html");
+}
+
 // On page load, get the logged-in user's username and display user info
  window.onload = async function () {
 
     // Get the relative url
     var pathname = window.location.pathname;
-    console.log(pathname);
 
     // Onload behavior is different depending on path
     switch(pathname) {
