@@ -1,33 +1,21 @@
-{% extends "base.html" %}
-
-{% block content %}
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <link rel="stylesheet" href="login.css"> -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
-
-  <title>Banking App</title>
+    <meta charset="UTF-8">
+    <title>Login</title>
 </head>
 <body>
-  <div class="login-container">
-    <h2>Login</h2>
-    <form action="{{ url_for('login') }}" method="POST">
-        <div class="form-group">
-            <label for="useremail">Email</label>
-            <input type="text" id="useremail" name="useremail" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <button type="submit">Login</button>
+    <h1>Login</h1>
+    <form id="loginForm">
+        <label for="useremail">Email:</label>
+        <input type="email" id="useremail" name="useremail" required><br><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        
+        <input type="submit" value="Login">
     </form>
-    <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a>.</p>
-</div>
+    
+    <script src="../client/script.js"></script>
 </body>
-</html>
-{% endblock %}
+</html> -->
