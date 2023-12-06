@@ -18,8 +18,49 @@ function redirect(url) {
     window.location.href = url;
 }
 
-// Try to log the user in
-// If successful save user in local storage
+async function requestBalance(username) {
+    return fetch(`${BASE_URL}/banking/${username}/balance`)
+        .then((response) => response.json())
+        .then((data) => displayBalance(data))
+        .catch((error) => console.log(error));
+}
+
+function displayBalance(data) {
+    const balanceElement = document.getElementById("balance");
+    balanceElement.innerText = `$${data["Balance"]}`;
+}
+
+async function requestTransactionsTo(username) {
+    return fetch(`${BASE_URL}/banking/${username}/transactionst`)
+        .then((response) => response.json())
+        .then((data) => displayTransTo(data["Transactions_t"]))
+        .catch((error) => console.log(error));
+}
+
+function displayTransTo(data) {
+    const transDate = document.getElementById("trans-to-date");
+    transDate.innerText = data[0][1];
+    const transFrom = document.getElementById("trans-to-from");
+    transFrom.innerText = data[0][2];
+    const transAmount = document.getElementById("trans-to-amount");
+    transAmount.innerText = data[0][4];
+}
+async function requestTransactionsFrom(username) {
+    return fetch(`${BASE_URL}/banking/${username}/transactionsf`)
+        .then((response) => response.json())
+        .then((data) => displayTransFrom(data["Transactions_f"]))
+        .catch((error) => console.log(error));
+}
+
+function displayTransFrom(data) {
+    const transDate = document.getElementById("trans-from-date");
+    transDate.innerText = data[0][1];
+    const transTo = document.getElementById("trans-from-to");
+    transTo.innerText = data[0][3];
+    const transAmount = document.getElementById("trans-from-amount");
+    transAmount.innerText = data[0][4];
+}
+
 async function login() {
     let username = document.querySelector("input[name='username']").value;
     let password = document.querySelector("input[name='password']").value;
@@ -34,7 +75,6 @@ async function login() {
         pswdMsg = document.getElementById("msg");
         pswdMsg.innerText = "Incorrect Username/Password";
     }
-}
 
 // On page load, get the logged-in user's username and display user info
  window.onload = async function () {
