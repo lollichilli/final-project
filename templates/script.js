@@ -128,6 +128,44 @@ async function login() {
     }
 }
 
+async function requestMoney(username, receiver, amount) {
+    return fetch(`${BASE_URL}/${username}/send/${receiver}/${amount}`)
+        .then(response => response.json())
+        .catch(error => console.log(error));
+}
+
+async function sendMoney() {
+    let receiver = document.querySelector("input[name='receiver']").value;
+    let amount = document.querySelector("input[name='amount']").value;
+    let userName = sessionStorage.getItem("username");
+
+    if (amount >= 0) {
+        let sendAmount = await requestMoney(userName, receiver, amount);
+        if (sendAmount['Success'][0] == true) {
+            console.log('test');
+            alert("Money sent successfully");
+            redirect('index.html');
+        } else {
+            console.log('false');
+            if (sendAmount['Success'][0] == false) {
+                alert(sendAmount['Success'][1]);
+            }
+        }
+        
+    };
+
+
+    // If the user exists and the password is correct then continue
+    if (userData && password == userData[username][3]) {
+        sessionStorage.setItem('username', username);
+        console.log('redirecting...')
+        redirect("index.html");
+    } else {
+        pswdMsg = document.getElementById("msg");
+        pswdMsg.innerText = "Incorrect Username/Password";
+    }
+}
+
 function logout() {
     sessionStorage.removeItem('username');
     redirect("login.html");
@@ -161,6 +199,12 @@ function logout() {
 
             requestTransactionsTo(currentUser);
             requestTransactionsFrom(currentUser);
+            break;
+        case "/templates/send_money.html" :
+            let curUser = sessionStorage.getItem("username");
+            curUser = curUser ? curUser : redirect("login.html");
+            break;
+
 
     }
 }
