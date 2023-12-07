@@ -37,7 +37,7 @@ function displayBalance(data) {
 }
 
 async function requestTransactionsTo(username) {
-    return fetch(`${BASE_URL}/banking/${username}/transactionst`)
+    return fetch(`${BASE_URL}/${username}/transactionst`)
         .then((response) => response.json())
         .then((data) => displayTransTo(data["Transactions_t"]))
         .catch((error) => console.log(error));
@@ -66,7 +66,7 @@ function displayTransTo(data) {
 }
 
 async function requestTransactionsFrom(username) {
-    return fetch(`${BASE_URL}/banking/${username}/transactionsf`)
+    return fetch(`${BASE_URL}/${username}/transactionsf`)
         .then((response) => response.json())
         .then((data) => displayTransFrom(data["Transactions_f"]))
         .catch((error) => console.log(error));
