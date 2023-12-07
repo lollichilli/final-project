@@ -37,35 +37,61 @@ function displayBalance(data) {
 }
 
 async function requestTransactionsTo(username) {
-    return fetch(`${BASE_URL}/${username}/transactionst`)
+    return fetch(`${BASE_URL}/banking/${username}/transactionst`)
         .then((response) => response.json())
         .then((data) => displayTransTo(data["Transactions_t"]))
         .catch((error) => console.log(error));
 }
 
 function displayTransTo(data) {
-    console.log(data);
-    const transDate = document.getElementById("trans-to-date");
-    transDate.innerText = data[0][1];
-    const transFrom = document.getElementById("trans-to-from");
-    transFrom.innerText = data[0][2];
-    const transAmount = document.getElementById("trans-to-amount");
-    transAmount.innerText = data[0][4];
+    const transactionHistoryElement = document.querySelector('.transaction-to-user');
+
+    data.forEach(transaction => {
+        const transactionDiv = document.createElement('div');
+        transactionDiv.classList.add('transaction', 'transaction-to-user');
+
+        const transDate = document.createElement('p');
+        transDate.innerHTML = `<b>Date:</b> ${transaction[1]}`;
+        const transFrom = document.createElement('p');
+        transFrom.innerHTML = `<b>From:</b> ${transaction[2]}`;
+        const transAmount = document.createElement('p');
+        transAmount.innerHTML = `<b>Amount:</b> ${transaction[4]}`;
+
+        transactionDiv.appendChild(transDate);
+        transactionDiv.appendChild(transFrom);
+        transactionDiv.appendChild(transAmount);
+
+        transactionHistoryElement.appendChild(transactionDiv);
+    });
 }
+
 async function requestTransactionsFrom(username) {
-    return fetch(`${BASE_URL}/${username}/transactionsf`)
+    return fetch(`${BASE_URL}/banking/${username}/transactionsf`)
         .then((response) => response.json())
         .then((data) => displayTransFrom(data["Transactions_f"]))
         .catch((error) => console.log(error));
 }
 
 function displayTransFrom(data) {
-    const transDate = document.getElementById("trans-from-date");
-    transDate.innerText = data[0][1];
-    const transTo = document.getElementById("trans-from-to");
-    transTo.innerText = data[0][3];
-    const transAmount = document.getElementById("trans-from-amount");
-    transAmount.innerText = data[0][4];
+    const transactionHistoryElement = document.querySelector('.transaction-from-user');
+
+    data.forEach(transaction => {
+        const transactionDiv = document.createElement('div');
+        transactionDiv.classList.add('transaction', 'transaction-from-user');
+
+        const transDate = document.createElement('p');
+        transDate.innerHTML = `<b>Date:</b> ${transaction[1]}`;
+        const transTo = document.createElement('p');
+        transTo.innerHTML = `<b>To:</b> ${transaction[3]}`;
+        const transAmount = document.createElement('p');
+        transAmount.innerHTML = `<b>Amount:</b> ${transaction[4]}`;
+
+        transactionDiv.appendChild(transDate);
+        transactionDiv.appendChild(transTo);
+        transactionDiv.appendChild(transAmount);
+
+        transactionHistoryElement.appendChild(transactionDiv);
+    });
 }
 
 async function register() {
